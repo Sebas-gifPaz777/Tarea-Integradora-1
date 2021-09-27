@@ -2,8 +2,6 @@ package ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.FormatStyle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateStringConverter;
 import model.ControllerModel;
 import model.Employee;
 
@@ -93,13 +90,10 @@ public class CucharitaControllerGUI {
 	@FXML
     public void signIn(ActionEvent event) throws IOException {
 		
-		int check=checkUsers(txtIdInside.getText(),txtPasswordInside.getText());
+		int check=employeesManager.checkUsers(txtIdInside.getText(),txtPasswordInside.getText());
 		
 		if(check!=999999) {
-			//FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Change-Password.fxml"));
-			fxmlLoader.setController(this);
-			Parent changeP=fxmlLoader.load();
-			mainPane.getChildren().setAll(changeP);
+			changeWindows("model-Menu.fxml");
 		}
 		else {
 			advertisement("El id o la contraseña es incorrecta");
@@ -108,17 +102,35 @@ public class CucharitaControllerGUI {
 
     @FXML
     public void signUp(ActionEvent event) throws IOException {
-    	FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Registration.fxml"));
-		fxmlLoader.setController(this);
-		Parent changeR=fxmlLoader.load();
-		mainPane.getChildren().setAll(changeR);
+    	changeWindows("Registration.fxml");
     }
     
     @FXML
     public void efectiveSignUp(ActionEvent event) {
     	LocalDate date=dpBirth.getValue();
-    	String birth=date.setConverter(new LocalDateStringConverter(FormatStyle.SHORT));
+    	String birth=date.toString();
+    	String name=txtName.getText();
+    	String id=txtId.getText();
+    	String password=txtPassword.getText();
     	
+    	boolean check=employeesManager.confirmNewUser(id);
+    	boolean correctly=employeesManager.addEmployee(new Employee(name,id,birth,password));
+    	
+    	if(check==true) {
+    		advertisement("Ya exite un usuario con esta cédula");
+    	}
+    	else if(correctly==true) {
+    		advertisement("El empleado ha sido agregado");
+    	}
+    	else {
+    		advertisement("No se pudo agregar al empleado");
+    	}
+    	
+    }
+    
+    @FXML
+    public void backHome(ActionEvent event) throws IOException {
+    	firstWindow();
     }
 	
 	public void itializeTableView(){
@@ -135,17 +147,13 @@ public class CucharitaControllerGUI {
 	@FXML
     public void changePassword(ActionEvent event) throws IOException {
 		
-		FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Change-Password.fxml"));
-		fxmlLoader.setController(this);
-		Parent changeP=fxmlLoader.load();
-		mainPane.getChildren().setAll(changeP);
-		
+		changeWindows("Change-Password.fxml");
 	}
 	
 	@FXML
     public void changeAction(ActionEvent event) {
 		
-		int check=checkUsers(tfId.getText(),tfOldPassword.getText());
+		int check=employeesManager.checkUsers(tfId.getText(),tfOldPassword.getText());
 		
 		if(check!=999999) {
 			employeesManager.getEmployees().get(check).setPassword(tfNewPassword.getText());
@@ -159,24 +167,7 @@ public class CucharitaControllerGUI {
 	
 	public void firstWindow() throws IOException {
 		
-		FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("model-Autentication.fxml"));
-		fxmlLoader.setController(this);
-		Parent firstW=fxmlLoader.load();
-		mainPane.getChildren().setAll(firstW);
-	}
-	
-	public int checkUsers(String idc, String passw) {
-		int ok=999999;
-		
-		for(int i=0;i<employeesManager.getEmployees().size();i++) {
-			if(employeesManager.getEmployees().get(i).getId().equals(idc)) {
-				if(employeesManager.getEmployees().get(i).getPassword().equals(passw)) {
-					ok=i;
-				}
-			}
-		}
-		
-		return ok;
+		changeWindows("model-Autentication.fxml");
 	}
 	
 	public void advertisement(String info) {
@@ -187,5 +178,23 @@ public class CucharitaControllerGUI {
 		alert.showAndWait();
 	}
 	
+	@FXML
+	public void showEmployeeList(ActionEvent event) throws IOException {
+		changeWindows("model-EmployeesList.fxml");
+		
+		itializeTableView();
+	}
 	
+	//Por hacer
+	@FXML
+	public void showInvetory(ActionEvent event)throws IOException {
+		changeWindows("");
+	}
+	
+	public void changeWindows(String jvfxml) throws IOException {
+		FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource(jvfxml));
+		fxmlLoader.setController(this);
+		Parent change=fxmlLoader.load();
+		mainPane.getChildren().setAll(change);
+	}
 }

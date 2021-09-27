@@ -12,10 +12,11 @@
       <Label layoutX="128.0" layoutY="203.0" text="Contraseña" />
       <TextField fx:id="txtName" layoutX="221.0" layoutY="90.0" />
       <TextField fx:id="txtPassword" layoutX="221.0" layoutY="199.0" />
-      <Button fx:id="signUp" layoutX="258.0" layoutY="286.0" mnemonicParsing="false" text="Registrarse" />
+      <Button layoutX="332.0" layoutY="289.0" mnemonicParsing="false" onAction="#efectiveSignUp" text="Registrarse" />
       <TextField fx:id="txtId" layoutX="221.0" layoutY="126.0" />
       <Label layoutX="140.0" layoutY="130.0" text="Cédula" />
       <Label layoutX="86.0" layoutY="167.0" text="Fecha de nacimiento" />
       <DatePicker fx:id="dpBirth" layoutX="217.0" layoutY="163.0" />
+      <Button layoutX="120.0" layoutY="289.0" mnemonicParsing="false" onAction="#backHome" text="Atrás" />
    </children>
 </Pane>
