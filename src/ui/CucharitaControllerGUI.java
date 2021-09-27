@@ -15,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.ControllerModel;
 import model.Employee;
@@ -49,7 +49,7 @@ public class CucharitaControllerGUI {
     private TextField tfNewPassword;
     
     @FXML
-    private VBox mainPane;
+    private Pane mainPane;
     
     @FXML
     private TextField txtIdInside;
@@ -107,7 +107,7 @@ public class CucharitaControllerGUI {
     }
     
     @FXML
-    public void efectiveSignUp(ActionEvent event) {
+    public void efectiveSignUp(ActionEvent event) throws IOException {
     	LocalDate date=dpBirth.getValue();
     	String birth=date.toString();
     	String name=txtName.getText();
@@ -122,6 +122,7 @@ public class CucharitaControllerGUI {
     	}
     	else if(correctly==true) {
     		advertisement("El empleado ha sido agregado");
+    		changeWindows("model-Autentication.fxml");
     	}
     	else {
     		advertisement("No se pudo agregar al empleado");
@@ -134,11 +135,6 @@ public class CucharitaControllerGUI {
 		changeWindows("model-Autentication.fxml");
 	}
     
-    @FXML
-    public void registToFirst(ActionEvent event) throws IOException {
-    	firstWindow();
-    }
-	
 	public void itializeTableView(){
 		
     	observableList= FXCollections.observableArrayList(employeesManager.getEmployees());
@@ -157,13 +153,14 @@ public class CucharitaControllerGUI {
 	}
 	
 	@FXML
-    public void changeAction(ActionEvent event) {
+    public void changeAction(ActionEvent event) throws IOException {
 		
 		int check=employeesManager.checkUsers(tfId.getText(),tfOldPassword.getText());
 		
 		if(check!=999999) {
 			employeesManager.getEmployees().get(check).setPassword(tfNewPassword.getText());
 			advertisement("La contraseña del empleado "+employeesManager.getEmployees().get(check).getName()+" ha sido cambiada exitosamente");
+			showEmployeeList(event);
 		}
 		else {
 			advertisement("El id o la contraseña es incorrecta");
@@ -172,7 +169,7 @@ public class CucharitaControllerGUI {
     }
 	
 	@FXML
-	void changePassToMenu(ActionEvent event) throws IOException {
+	public void changePassToMenu(ActionEvent event) throws IOException {
 		changeWindows("model-Menu.fxml");
 	}
 	
