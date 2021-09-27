@@ -17,6 +17,6 @@
       <Label layoutX="140.0" layoutY="130.0" text="Cédula" />
       <Label layoutX="86.0" layoutY="167.0" text="Fecha de nacimiento" />
       <DatePicker fx:id="dpBirth" layoutX="217.0" layoutY="163.0" />
-      <Button layoutX="120.0" layoutY="289.0" mnemonicParsing="false" onAction="#backHome" text="Atrás" />
+      <Button layoutX="120.0" layoutY="289.0" mnemonicParsing="false" onAction="#registToFirst" text="Atrás" />
    </children>
 </Pane>

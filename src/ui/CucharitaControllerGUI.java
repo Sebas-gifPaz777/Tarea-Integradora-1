@@ -85,6 +85,7 @@ public class CucharitaControllerGUI {
 		
 		dpBirth= new DatePicker();
 		dpBirth.setEditable(false);
+		employeesManager=new ControllerModel();
 	}
 	
 	@FXML
@@ -128,8 +129,13 @@ public class CucharitaControllerGUI {
     	
     }
     
+    public void firstWindow() throws IOException {
+		
+		changeWindows("model-Autentication.fxml");
+	}
+    
     @FXML
-    public void backHome(ActionEvent event) throws IOException {
+    public void registToFirst(ActionEvent event) throws IOException {
     	firstWindow();
     }
 	
@@ -165,10 +171,12 @@ public class CucharitaControllerGUI {
 		
     }
 	
-	public void firstWindow() throws IOException {
-		
-		changeWindows("model-Autentication.fxml");
+	@FXML
+	void changePassToMenu(ActionEvent event) throws IOException {
+		changeWindows("model-Menu.fxml");
 	}
+	
+	
 	
 	public void advertisement(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
