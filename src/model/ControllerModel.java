@@ -4,16 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerModel {
-List<Employee> employees;
+	List<Employee> employees;
+	List<Ingredient> ingredients;
+
 	
 	public ControllerModel() {
 		
 		employees= new ArrayList<Employee>();
+		ingredients =new ArrayList<Ingredient>();
+
 	}
 	
 	public List<Employee> getEmployees(){
 		return employees;
 	}
+	
+	public List<Ingredient> getIngredients(){
+		return ingredients;
+	}
+
 	
 	public boolean addEmployee(Employee newEmployee) {
 		
@@ -24,6 +33,14 @@ List<Employee> employees;
 			return false;
 	}
 	
+	public boolean addIngredient(Ingredient newIngredient) {
+		if(ingredients.add(newIngredient)) {
+			return true;
+		}
+		else 
+			return false;
+	}
+
 	public int checkUsers(String idc, String passw) {
 		int ok=999999;
 		
