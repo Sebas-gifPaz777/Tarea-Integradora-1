@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="242.0" layoutY="102.0" mnemonicParsing="false" onAction="#showInvetory" text="Inventario" />
+      <Button layoutX="218.0" layoutY="149.0" mnemonicParsing="false" onAction="#showEmployeeList" text="Lista de empleados" />
+      <Button layoutX="247.0" layoutY="200.0" mnemonicParsing="false" text="Pedidos" />
+      <Button layoutX="244.0" layoutY="248.0" mnemonicParsing="false" text="Reportes" />
+   </children>
+</Pane>
