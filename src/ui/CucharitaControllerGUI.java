@@ -202,4 +202,9 @@ public class CucharitaControllerGUI {
 		Parent change=fxmlLoader.load();
 		mainPane.getChildren().setAll(change);
 	}
+	
+	@FXML
+    public void changePassToRegist(ActionEvent event) {
+		
+    }
 }
